@@ -30,7 +30,10 @@ public class Engine
             var defaultProperty = type.GetField("Default", BindingFlags.Public | BindingFlags.Static);
             var defaultInstance = (Bloc) defaultProperty!.GetValue(null)!;
             if(defaultInstance.Match(lines, startIndex))
-                return defaultInstance.Create(lines, startIndex);
+            {
+                var (b, i) = defaultInstance.Create(lines, startIndex);
+                return (b, i);
+            }
         }
 
         // If not we just return a default bloc
