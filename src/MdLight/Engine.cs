@@ -17,7 +17,7 @@ public class Engine
         var baseType = typeof(Bloc);
         foreach (var type in baseType.Assembly.GetTypes())
         {
-            if(type.IsSubclassOf(baseType))
+            if(type.IsSubclassOf(baseType) && type != typeof(Ulist.ListItem))
                 yield return type;
         }
     }
