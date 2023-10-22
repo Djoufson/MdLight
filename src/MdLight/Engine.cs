@@ -1,5 +1,6 @@
 using System.Reflection;
 using MdLight.Markdown.Base;
+using MdLight.Markdown.Blocs;
 
 namespace MdLight;
 
@@ -26,13 +27,13 @@ public class Engine
         // Check if the current index matches any bloc criteria
         foreach (var type in _types)
         {
-            var defaultProperty = type.GetProperty("Default", BindingFlags.NonPublic | BindingFlags.Static);
+            var defaultProperty = type.GetField("Default", BindingFlags.Public | BindingFlags.Static);
             var defaultInstance = (Bloc) defaultProperty!.GetValue(null)!;
             if(defaultInstance.Match(lines, startIndex))
                 return defaultInstance.Create(lines, startIndex);
         }
 
         // If not we just return a default bloc
-        return (null!, lines.Count());
+        return (Paragraph.Default.Create(lines, startIndex).Item1, lines.Count());
     }
 }
