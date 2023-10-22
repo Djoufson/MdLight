@@ -14,7 +14,7 @@ internal class Paragraph : Bloc
 
     public override (Bloc, int) Create(IEnumerable<string> lines, int startIndex)
     {
-        return (new Paragraph(lines.ElementAt(startIndex)), startIndex++);
+        return (new Paragraph(lines.ElementAt(startIndex)), ++startIndex);
     }
 
     public override bool Match(IEnumerable<string> lines, int startIndex)
